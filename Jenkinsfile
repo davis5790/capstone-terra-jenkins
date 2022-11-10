@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
         stage('Dev') {
             steps {
                 echo 'deployed to dev..'
@@ -13,7 +8,7 @@ pipeline {
         }
         stage('Test') {
 	    when {
-	        branch 'dev'
+	        branch 'Prod'
 		}
             steps {
                 echo 'Testing..'
@@ -21,7 +16,7 @@ pipeline {
         }
         stage('Deploy') {
 	    when {
-	        branch 'Prod'
+	        branch 'main'
 		}
             steps {
                 echo 'Deploying....'
