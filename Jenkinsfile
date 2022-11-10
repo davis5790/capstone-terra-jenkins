@@ -7,19 +7,22 @@ pipeline {
             }
         }
         stage('Dev') {
-            when {
-                branch 'dev-*'
-            }
             steps {
                 echo 'deployed to dev..'
             }
         }
         stage('Test') {
+	    when {
+	        branch 'dev'
+		}
             steps {
                 echo 'Testing..'
             }
         }
         stage('Deploy') {
+	    when {
+	        branch 'Prod'
+		}
             steps {
                 echo 'Deploying....'
             }
