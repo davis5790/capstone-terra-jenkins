@@ -7,9 +7,6 @@ pipeline {
             }
         }
         stage('Test') {
-	        when {
-	            branch 'dev'
-	        }
           steps {
                 echo 'Testing..'
             }
