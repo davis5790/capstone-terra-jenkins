@@ -10,7 +10,7 @@ pipeline {
 	        when {
 	            branch 'dev'
 	        }
-            steps {
+          steps {
                 echo 'Testing..'
             }
         }
@@ -23,9 +23,9 @@ pipeline {
             }
         }
         stage('Deploy') {
-	    when {
-	        branch 'main'
-		}
+	          when {
+	              branch 'main'
+		        }
             steps {
                 echo 'Deploying....'
             }
