@@ -13,16 +13,22 @@ pipeline {
         }
         stage('QA') {
             when {
-                branch 'Prod' || 'main'
+                branch 'Prod'
             }
             steps {
-                echo 'Quality Assurance'
+                echo 'Testing Prod branch for QA'
             }
+	    when {
+		branch 'main'
+	    }
+	    steps {
+		echo 'Testing main branch for QA
+			
         }
         stage('Deploy') {
-	          when {
-	              branch 'main'
-		        }
+	    when {    
+		branch 'main'
+	    }
             steps {
                 echo 'Deploying....'
             }
