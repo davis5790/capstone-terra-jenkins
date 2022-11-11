@@ -13,7 +13,7 @@ pipeline {
         }
         stage('QA') {
             when {
-                branch 'Prod' || branch 'main'
+                branch 'Prod' || 'main'
             }
             steps {
                 echo 'Quality Assurance'
