@@ -14,16 +14,16 @@ pipeline {
         stage('QA') {
             when {
 		anyOf {
-		    branch 'Prod'; branch 'main'
+		    branch 'prod-*'; branch 'main-*'
 		}
             }
 	    steps {
-		echo 'Testing main branch for QA'
+		echo 'Testing branch for QA'
 	    }		
         }
         stage('Deploy') {
 	    when {    
-		branch 'main'
+		branch 'main-*'
 	    }
             steps {
                 echo 'Deploying....'
