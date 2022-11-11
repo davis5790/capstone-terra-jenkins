@@ -13,14 +13,9 @@ pipeline {
         }
         stage('QA') {
             when {
-                branch 'Prod'
+		anyOf {
+		    branch 'Prod'; branch 'main'
             }
-            steps {
-                echo 'Testing Prod branch for QA'
-            }
-	    when {
-		branch 'main'
-	    }
 	    steps {
 		echo 'Testing main branch for QA'
 	    }		
