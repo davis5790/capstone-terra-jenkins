@@ -23,7 +23,7 @@ pipeline {
 	    }
 	    steps {
 		echo 'Testing main branch for QA'
-			
+	    }		
         }
         stage('Deploy') {
 	    when {    
