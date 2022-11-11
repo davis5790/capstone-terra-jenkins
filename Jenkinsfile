@@ -7,25 +7,24 @@ pipeline {
             }
         }
         stage('Test') {
-	        when {
-	            branch 'dev'
-	        }
-            steps {
+          steps {
                 echo 'Testing..'
             }
         }
         stage('QA') {
             when {
-                branch 'Prod'
+		anyOf {
+		    branch 'Prod'; branch 'main'
+		}
             }
-            steps {
-                echo 'Quality Assurance'
-            }
+	    steps {
+		echo 'Testing main branch for QA'
+	    }		
         }
         stage('Deploy') {
-	    when {
-	        branch 'main'
-		}
+	    when {    
+		branch 'main'
+	    }
             steps {
                 echo 'Deploying....'
             }
