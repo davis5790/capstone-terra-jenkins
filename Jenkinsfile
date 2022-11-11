@@ -15,6 +15,7 @@ pipeline {
             when {
 		anyOf {
 		    branch 'Prod'; branch 'main'
+		}
             }
 	    steps {
 		echo 'Testing main branch for QA'
