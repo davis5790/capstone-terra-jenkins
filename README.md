@@ -1,6 +1,3 @@
-# python-jenkins
-test python-jenkins
+# Fullstack Academy Devops Capstone
 
-editing a branch using the dev-* syntax to test my pipeline logic, AGAIN!!
-
-more pipeline edit testing.
+This is a rework of my groups capstone project using Jenkins for the CI/CD and terraform.
