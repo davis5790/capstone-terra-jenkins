@@ -3,21 +3,17 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_ecr_repository" "my_first_ecr_repo" {
-  name = "my-first-ecr-repo" # Naming my repository
+resource "aws_ecs_cluster" "capstone_cluster" {
+  name = "capstone-cluster" # Naming the cluster
 }
 
-resource "aws_ecs_cluster" "my_cluster" {
-  name = "my-cluster" # Naming the cluster
-}
-
-resource "aws_ecs_task_definition" "my_first_task" {
-  family                   = "my-first-task" # Naming our first task
+resource "aws_ecs_task_definition" "capstone_task" {
+  family                   = "capstone-task" # Naming our first task
   container_definitions    = <<DEFINITION
   [
     {
-      "name": "my-first-task",
-      "image": "606026656431.dkr.ecr.us-east-1.amazonaws.com/my-first-ecr-repo:latest",
+      "name": "capstone-task",
+      "image": "606026656431.dkr.ecr.us-east-1.amazonaws.com/capstone-ecr-repo:latest",
       "essential": true,
       "portMappings": [
         {
@@ -77,16 +73,16 @@ resource "aws_default_subnet" "default_subnet_c" {
 }
 
 
-resource "aws_ecs_service" "my_first_service" {
-  name            = "my-first-service"                        # Naming our first service
-  cluster         = aws_ecs_cluster.my_cluster.id             # Referencing our created Cluster
-  task_definition = aws_ecs_task_definition.my_first_task.arn # Referencing the task our service will spin up
+resource "aws_ecs_service" "capstone_service" {
+  name            = "capstone-service"                        # Naming our service
+  cluster         = aws_ecs_cluster.capstone_cluster.id       # Referencing our created Cluster
+  task_definition = aws_ecs_task_definition.capstone_task.arn # Referencing the task our service will spin up
   launch_type     = "FARGATE"
   desired_count   = 3 # Setting the number of containers we want deployed to 3
 
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn # Referencing our target group
-    container_name   = aws_ecs_task_definition.my_first_task.family
+    container_name   = aws_ecs_task_definition.capstone_task.family
     container_port   = 80 # Specifying the container port
   }
 
@@ -117,7 +113,7 @@ resource "aws_security_group" "service_security_group" {
 
 
 resource "aws_alb" "application_load_balancer" {
-  name               = "test-lb-tf" # Naming our load balancer
+  name               = "capstone-lb-tf" # Naming our load balancer
   load_balancer_type = "application"
   subnets = [ # Referencing the default subnets
     "${aws_default_subnet.default_subnet_a.id}",
