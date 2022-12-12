@@ -1,16 +1,19 @@
-from flask import Flask, render_template, request
+from flask import Blueprint, render_template, request
+from flask_login import login_required, current_user
 import requests
+from . import db
 
-app = Flask(__name__)
-#app.config["DEBUG"] = True
+main = Blueprint('main', __name__)
 
+@main.route('/')
+def index():
+    return render_template('index.html')
 
-@app.route('/')
+@main.route('/form')
 def form():
     return render_template('form.html')
 
-
-@app.route('/data/', methods=['POST'])
+@main.route('/data/', methods=['POST'])
 def data():
 
     # create a variable containing the value of the city field on the html form
@@ -31,6 +34,7 @@ def data():
     # the render template displays info to users
     return render_template('data.html', info=info)
 
-
-#app.run()
-app.run(host='0.0.0.0', port=80)
+@main.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', name=current_user.name)
